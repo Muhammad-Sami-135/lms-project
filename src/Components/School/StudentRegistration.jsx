@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import StudentList from "./StudentList";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../Screens/Firebaseconfig";
 import {
   Box,
   Button,
@@ -13,9 +9,12 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import { addDoc, collection } from "firebase/firestore";
+import React, { useState } from "react";
+import { db } from "../../Screens/Firebaseconfig";
 import { useNavigate } from "react-router-dom";
 
-const StudentAdd = () => {
+export const StudentRegistration = () => {
   let [firstName, setFirstName] = useState("");
   let [lastName, setLastName] = useState("");
   let [email, setEmail] = useState("");
@@ -73,7 +72,7 @@ const StudentAdd = () => {
               marginBottom: 1,
             }}
           >
-            Registration Form
+            Student Registration
           </Typography>
 
           <form onSubmit={handleSubmit}>
@@ -153,5 +152,3 @@ const StudentAdd = () => {
     </>
   );
 };
-
-export default StudentAdd;

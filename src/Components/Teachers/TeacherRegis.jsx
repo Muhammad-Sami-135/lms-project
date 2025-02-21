@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import StudentList from "./StudentList";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../Screens/Firebaseconfig";
 import {
   Box,
   Button,
@@ -13,36 +9,39 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import { addDoc, collection } from "firebase/firestore";
+import React, { useState } from "react";
+import { db } from "../../Screens/Firebaseconfig";
 import { useNavigate } from "react-router-dom";
 
-const StudentAdd = () => {
-  let [firstName, setFirstName] = useState("");
-  let [lastName, setLastName] = useState("");
-  let [email, setEmail] = useState("");
-  let [studentClass, setStudentClass] = useState("");
+export const TeacherRegis = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [teacherclass, setTeacherclass] = useState("");
   const navigate = useNavigate("");
 
   console.log(firstName);
   console.log(lastName);
   console.log(email);
-  console.log(studentClass);
+  console.log(teacherclass);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      let userobj = {
+      const teacherObj = {
         firstName,
         lastName,
         email,
-        studentClass,
+        teacherclass,
       };
 
-      const response = await addDoc(collection(db, "students"), userobj);
-      console.log("StudentRegister succesfully", response);
-      navigate("/Dashboard/StdList");
+      const response = await addDoc(collection(db, "Teacher"), teacherObj);
+      console.log(response);
+      navigate("/Dashboard/TeacherList");
     } catch (error) {
-      console.error("Error adding student:", error);
+      console.log(error);
     }
   };
 
@@ -73,7 +72,7 @@ const StudentAdd = () => {
               marginBottom: 1,
             }}
           >
-            Registration Form
+            Teacher Registration
           </Typography>
 
           <form onSubmit={handleSubmit}>
@@ -119,7 +118,7 @@ const StudentAdd = () => {
             <label>Class:</label>
             <Input
               onChange={(e) => {
-                setStudentClass(e.target.value);
+                setTeacherclass(e.target.value);
               }}
               type="text"
               name="class"
@@ -153,5 +152,3 @@ const StudentAdd = () => {
     </>
   );
 };
-
-export default StudentAdd;

@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import StudentList from "./StudentList";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../Screens/Firebaseconfig";
 import {
   Box,
   Button,
@@ -13,36 +9,41 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { db } from "../../Screens/Firebaseconfig";
 
-const StudentAdd = () => {
-  let [firstName, setFirstName] = useState("");
-  let [lastName, setLastName] = useState("");
-  let [email, setEmail] = useState("");
-  let [studentClass, setStudentClass] = useState("");
-  const navigate = useNavigate("");
+export const ClassForm = () => {
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [Email, setEmail] = useState();
+  const [number, setNumber] = useState();
+  const [date, setDate] = useState();
+  const navigate = useNavigate();
 
   console.log(firstName);
   console.log(lastName);
-  console.log(email);
-  console.log(studentClass);
+  console.log(Email);
+  console.log(number);
+  console.log(date);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      let userobj = {
+      const userObj = {
         firstName,
         lastName,
-        email,
-        studentClass,
+        Email,
+        number,
+        date,
       };
-
-      const response = await addDoc(collection(db, "students"), userobj);
-      console.log("StudentRegister succesfully", response);
-      navigate("/Dashboard/StdList");
+      const response = await addDoc(collection(db, "Class"), userObj);
+      console.log(response);
+      navigate("/Dashboard/ClassList");
     } catch (error) {
-      console.error("Error adding student:", error);
+      console.log(error);
     }
   };
 
@@ -55,7 +56,7 @@ const StudentAdd = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "88vh",
+          height: "100vh",
         }}
       >
         <Box
@@ -73,7 +74,7 @@ const StudentAdd = () => {
               marginBottom: 1,
             }}
           >
-            Registration Form
+            Class Form
           </Typography>
 
           <form onSubmit={handleSubmit}>
@@ -116,14 +117,26 @@ const StudentAdd = () => {
             <br />
             <br />
 
-            <label>Class:</label>
+            <label>Phone Number:</label>
             <Input
               onChange={(e) => {
-                setStudentClass(e.target.value);
+                setNumber(e.target.value);
               }}
-              type="text"
-              name="class"
-              placeholder="Enter your class"
+              type="number"
+              name="number"
+              placeholder="Enter your Phone Number"
+              fullWidth
+            />
+            <br />
+            <br />
+
+            <label>Date</label>
+            <Input
+              onChange={(e) => {
+                setDate(e.target.value);
+              }}
+              type="date"
+              name="date"
               fullWidth
             />
             <br />
@@ -153,5 +166,3 @@ const StudentAdd = () => {
     </>
   );
 };
-
-export default StudentAdd;

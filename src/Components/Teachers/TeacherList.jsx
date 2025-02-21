@@ -1,23 +1,23 @@
 import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import DataTable from "../Table";
+import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Screens/Firebaseconfig";
-import { useNavigate } from "react-router-dom";
 
-const studentColumns = [
+const teachercolumn = [
   { field: "id", headerName: "ID", width: 190 },
   { field: "firstName", headerName: "First Name", width: 160 },
   { field: "lastName", headerName: "Last Name", width: 160 },
   { field: "email", headerName: "Email", width: 160 },
 ];
 
-const StudentList = () => {
+export const TeacherList = () => {
   const [userData, setUserData] = useState([]);
   const navigate = useNavigate("");
 
   const addlist = () => {
-    navigate("/Dashboard/StdAdd");
+    navigate("/Dashboard/TeacherRegis");
   };
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const StudentList = () => {
   const getDataFromDataBase = async () => {
     try {
       let arr = [];
-      const getData = await getDocs(collection(db, "students"));
+      const getData = await getDocs(collection(db, "Teacher"));
       getData.forEach((doc) => {
         console.log(doc.data());
 
@@ -45,11 +45,11 @@ const StudentList = () => {
 
   return (
     <>
-      <div style={{ width: "60%", margin: "0 auto" }}>
+      <div style={{ width: "60%", margin: "20px auto" }}>
         <div
           style={{
             border: "1px solid ,#f5f5f5",
-            background: "#f5f5f5  ",
+            background: "#f5f5f5",
             borderRadius: "8px",
             padding: "20px",
           }}
@@ -62,15 +62,15 @@ const StudentList = () => {
               textAlign: "center",
             }}
           >
-            Students List
+            Teacher List
           </Typography>
 
           <Button
             onClick={addlist}
             sx={{
               color: "white",
-              background: "rgb(16,129,238 , 0.6)",
               marginTop: "5px",
+              background: "rgb(16,129,238 , 0.6)",
               padding: "6px 10px",
               borderRadius: "8px",
               width: "100%",
@@ -81,10 +81,7 @@ const StudentList = () => {
           </Button>
         </div>
       </div>
-      <br />
-      {userData && <DataTable userlist={userData} coloumns={studentColumns} />}
+      {userData && <DataTable userlist={userData} coloumns={teachercolumn} />}
     </>
   );
 };
-
-export default StudentList;

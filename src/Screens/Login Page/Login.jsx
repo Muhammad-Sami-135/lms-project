@@ -97,7 +97,7 @@ export default function Login(props) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
-        alert(errorMessage)
+        alert(errorMessage);
       });
   };
 
@@ -127,26 +127,28 @@ export default function Login(props) {
 
     return isValid;
   };
+  
 
-  const continuegoogle = () => {
-    const provider = new GoogleAuthProvider();
+  // const continuegoogle = () => {
+  //   const provider = new GoogleAuthProvider();
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        console.log(user);
-        navigate("/Dashboard");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorMessage);
-      });
-  };
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       const user = result.user;
+  //       console.log(user);
+  //       navigate("/Dashboard");
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       const email = error.customData.email;
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       console.log(errorMessage);
+  //     });
+  // };
+
 
   return (
     <>
@@ -228,7 +230,7 @@ export default function Login(props) {
             <Button
               fullWidth
               variant="outlined"
-              onClick={continuegoogle}
+              // onClick={continuegoogle}
               startIcon={<GoogleIcon />}
               style={{
                 backgroundColor: "white",
@@ -243,7 +245,7 @@ export default function Login(props) {
               type="button"
               onClick={handleClickOpen}
               variant="body2"
-              sx={{ color:"black" , textDecoration:"none" }}
+              sx={{ color: "black", textDecoration: "none" }}
             >
               create your account
             </Link>

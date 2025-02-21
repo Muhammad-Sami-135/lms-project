@@ -1,24 +1,22 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import DataTable from "../Table";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Screens/Firebaseconfig";
 import { useNavigate } from "react-router-dom";
 
-const studentColumns = [
+const syllabusColumns = [
   { field: "id", headerName: "ID", width: 190 },
-  { field: "firstName", headerName: "First Name", width: 160 },
-  { field: "lastName", headerName: "Last Name", width: 160 },
-  { field: "email", headerName: "Email", width: 160 },
+  { field: "subjectName", headerName: "Subject Name", width: 160 },
+  { field: "studentClass", headerName: "Class", width: 160 },
 ];
 
-const StudentList = () => {
-  const [userData, setUserData] = useState([]);
-  const navigate = useNavigate("");
+export const SyllabusList = () => {
+  const navigate = useNavigate();
 
-  const addlist = () => {
-    navigate("/Dashboard/StdAdd");
-  };
+  //Read data
+
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     getDataFromDataBase();
@@ -27,7 +25,9 @@ const StudentList = () => {
   const getDataFromDataBase = async () => {
     try {
       let arr = [];
-      const getData = await getDocs(collection(db, "students"));
+      const getData = await getDocs(collection(db, "Syllabus"));
+      console.log(getData);
+
       getData.forEach((doc) => {
         console.log(doc.data());
 
@@ -37,15 +37,21 @@ const StudentList = () => {
         });
       });
 
+      console.log(...arr);
+
       setUserData([...arr]);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const addlist = () => {
+    navigate("/Dashboard/SyllabusForm");
+  };
+
   return (
     <>
-      <div style={{ width: "60%", margin: "0 auto" }}>
+      <div style={{ width: "60%", margin: "20px auto" }}>
         <div
           style={{
             border: "1px solid ,#f5f5f5",
@@ -62,7 +68,7 @@ const StudentList = () => {
               textAlign: "center",
             }}
           >
-            Students List
+            Syllabus List
           </Typography>
 
           <Button
@@ -81,10 +87,7 @@ const StudentList = () => {
           </Button>
         </div>
       </div>
-      <br />
-      {userData && <DataTable userlist={userData} coloumns={studentColumns} />}
+      {userData && <DataTable userlist={userData} coloumns={syllabusColumns} />}
     </>
   );
 };
-
-export default StudentList;

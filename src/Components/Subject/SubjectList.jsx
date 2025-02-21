@@ -5,19 +5,19 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Screens/Firebaseconfig";
 import { useNavigate } from "react-router-dom";
 
-const studentColumns = [
+const subjectColumns = [
   { field: "id", headerName: "ID", width: 190 },
-  { field: "firstName", headerName: "First Name", width: 160 },
-  { field: "lastName", headerName: "Last Name", width: 160 },
-  { field: "email", headerName: "Email", width: 160 },
+  { field: "addSubject", headerName: "Subject Name", width: 160 },
+  { field: "studentClass", headerName: "Class", width: 160 },
+  { field: "group", headerName: "Group", width: 160 },
 ];
 
-const StudentList = () => {
+export const SubjectList = () => {
   const [userData, setUserData] = useState([]);
   const navigate = useNavigate("");
 
   const addlist = () => {
-    navigate("/Dashboard/StdAdd");
+    navigate("/Dashboard/SubjectAdd");
   };
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const StudentList = () => {
   const getDataFromDataBase = async () => {
     try {
       let arr = [];
-      const getData = await getDocs(collection(db, "students"));
+      const getData = await getDocs(collection(db, "subject"));
       getData.forEach((doc) => {
         console.log(doc.data());
 
@@ -45,7 +45,7 @@ const StudentList = () => {
 
   return (
     <>
-      <div style={{ width: "60%", margin: "0 auto" }}>
+      <div style={{ width: "60%", margin: "20px auto" }}>
         <div
           style={{
             border: "1px solid ,#f5f5f5",
@@ -62,7 +62,7 @@ const StudentList = () => {
               textAlign: "center",
             }}
           >
-            Students List
+            Subject List
           </Typography>
 
           <Button
@@ -81,10 +81,7 @@ const StudentList = () => {
           </Button>
         </div>
       </div>
-      <br />
-      {userData && <DataTable userlist={userData} coloumns={studentColumns} />}
+      {userData && <DataTable userlist={userData} coloumns={subjectColumns} />}
     </>
   );
 };
-
-export default StudentList;

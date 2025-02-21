@@ -8,12 +8,12 @@ const firebaseConfig = {
   projectId: "lms-react-project",
   storageBucket: "lms-react-project.firebasestorage.app",
   messagingSenderId: "110054959126",
-  appId: "1:110054959126:web:a47343c5272913c02fad37"
+  appId: "1:110054959126:web:a47343c5272913c02fad37",
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-export default auth
-export {db}
+export default auth;
+export { db };

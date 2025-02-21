@@ -19,13 +19,13 @@ import { IoIosPaper, IoMdLogOut } from "react-icons/io";
 import { SiGoogleclassroom } from "react-icons/si";
 import { MdOutlinePayment } from "react-icons/md";
 import { PiExamFill } from "react-icons/pi";
-import AccessibilityIcon from '@mui/icons-material/Accessibility';
-import { useNavigate } from "react-router-dom";
+import AccessibilityIcon from "@mui/icons-material/Accessibility";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Login from "../Login Page/Login";
 import StudentAdd from "../../Components/Student/StudentAdd";
 import StudentList from "../../Components/Student/StudentList";
 
-const drawerWidth = 300;
+const drawerWidth = 270;
 
 export default function ClippedDrawer() {
   const [student, setstudent] = React.useState(false);
@@ -37,28 +37,36 @@ export default function ClippedDrawer() {
   const [fees, setFees] = React.useState(false);
   const [admission, setAdmission] = React.useState(false);
   const [exam, setExam] = React.useState(false);
+  const [login, setlogin] = React.useState();
+  const [stdList, setStdlist] = React.useState();
   const navigate = useNavigate();
-  const [login , setlogin] = React.useState();
-  const [stdList , setStdlist] = React.useState()
 
-
-  const logout = ()=>{
-    localStorage.clear()
-    navigate("/")
-  }
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 , backgroundColor:"#1081ee"}}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: "#1081ee",
+        }}
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div" width="300px">
-          Learning Managememnt System
+            Learning Managememnt System
           </Typography>
-        <Button variant="secondary" onClick={logout} sx={{marginLeft:"68%"}}><IoMdLogOut style={{fontSize:"25px"}}/> Logout</Button>
+          <Button
+            variant="secondary"
+            onClick={logout}
+            sx={{ marginLeft: "68%" }}
+          >
+            <IoMdLogOut style={{ fontSize: "25px" }} /> Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -73,7 +81,9 @@ export default function ClippedDrawer() {
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: "auto" ,backgroundColor:" rgb(16,129,238 , 0.6)"}}>
+        <Box
+          sx={{ overflow: "auto", backgroundColor: " rgb(16,129,238 , 0.6)" }}
+        >
           {/* Student */}
           <Divider />
           <List>
@@ -93,13 +103,21 @@ export default function ClippedDrawer() {
 
             <Collapse in={student} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton onClick={()=>{setlogin(<StudentAdd />)}} >
+                <ListItemButton
+                  onClick={() => {
+                    navigate("StdAdd");
+                  }}
+                >
                   <ListItemIcon></ListItemIcon>
                   <ListItemText primary="Student Registration" />
                 </ListItemButton>
               </List>
               <List component="div" disablePadding>
-                <ListItemButton onClick={()=>{setStdlist(<StudentList />)}}>
+                <ListItemButton
+                  onClick={() => {
+                    navigate("StdList");
+                  }}
+                >
                   <ListItemIcon></ListItemIcon>
                   <ListItemText primary="StudentList" />
                 </ListItemButton>
@@ -126,13 +144,21 @@ export default function ClippedDrawer() {
             </ListItem>
             <Collapse in={teacher} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    navigate("TeacherRegis");
+                  }}
+                >
                   <ListItemIcon></ListItemIcon>
                   <ListItemText primary="TeacherRegistration" />
                 </ListItemButton>
               </List>
               <List component="div" disablePadding>
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    navigate("TeacherList");
+                  }}
+                >
                   <ListItemIcon></ListItemIcon>
                   <ListItemText primary="TeacherList" />
                 </ListItemButton>
@@ -159,13 +185,21 @@ export default function ClippedDrawer() {
             </ListItem>
             <Collapse in={subjects} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    navigate("SubjectAdd");
+                  }}
+                >
                   <ListItemIcon></ListItemIcon>
                   <ListItemText primary="Subjects Add" />
                 </ListItemButton>
               </List>
               <List component="div" disablePadding>
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    navigate("SubjectList");
+                  }}
+                >
                   <ListItemIcon></ListItemIcon>
                   <ListItemText primary="Subject List" />
                 </ListItemButton>
@@ -193,13 +227,21 @@ export default function ClippedDrawer() {
           </List>
           <Collapse in={syllaybus} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("SyllabusForm");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Syllabus Form" />
               </ListItemButton>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("SyllabusList");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Syllabus List" />
               </ListItemButton>
@@ -226,13 +268,21 @@ export default function ClippedDrawer() {
           </List>
           <Collapse in={schools} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("StudentRegistration");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Student Registration" />
               </ListItemButton>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("TeacherRegistration");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Teacher Registration" />
               </ListItemButton>
@@ -259,13 +309,21 @@ export default function ClippedDrawer() {
           </List>
           <Collapse in={classs} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("ClassForm");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Class Form" />
               </ListItemButton>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("ClassList");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Class List" />
               </ListItemButton>
@@ -292,13 +350,21 @@ export default function ClippedDrawer() {
           </List>
           <Collapse in={fees} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("FeeStructure");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Fee Structure" />
               </ListItemButton>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("FeeVoucher");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Fee Voucher" />
               </ListItemButton>
@@ -325,7 +391,11 @@ export default function ClippedDrawer() {
           </List>
           <Collapse in={admission} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("AdmissionForm");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Admission Form" />
               </ListItemButton>
@@ -352,13 +422,21 @@ export default function ClippedDrawer() {
           </List>
           <Collapse in={exam} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("ExamSchedule");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Exam Schedule" />
               </ListItemButton>
             </List>
             <List component="div" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  navigate("ExamResult");
+                }}
+              >
                 <ListItemIcon></ListItemIcon>
                 <ListItemText primary="Exam Result" />
               </ListItemButton>
@@ -370,11 +448,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <Typography sx={{ marginBottom: 2 }}>
-                {
-                  login
-                }
-        </Typography>
+        <Outlet />
       </Box>
     </Box>
   );
